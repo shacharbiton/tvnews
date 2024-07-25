@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>דף הבית של שחר</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Heebo', Arial, sans-serif;
+            background-color: #f0f0f0;
+            direction: rtl;
+            overflow-x: hidden;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        #top-bar {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        #main-content {
+            display: flex;
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        #video-container {
+            width: 661px;
+            height: 372px;
+            background-color: #000;
+            position: relative;
+            margin-right: 20px;
+        }
+
+        #live-stream {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #info-container {
+            width: calc(100% - 681px); /* Adjusted to fit with the video container and margin */
+            background-color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #welcome-message {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #current-time {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        #weather-info {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        #rss-feed {
+            font-size: 18px; /* Adjust font size as desired */
+            max-height: auto;
+            overflow-y: auto;
+            padding: 10px;
+            line-height: 1.5;
+            background-color: #f5f5f5; /* Light background color */
+            border: 1px solid #ddd; /* Border for clarity */
+            border-radius: 5px; /* Rounded corners */
+            margin-top: 20px;
+        }
+
+        #rss-title {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .rss-item-title {
+            font-weight: bold;
+        }
+
+        #rss-ticker {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #000; /* Black background */
+            color: white; /* White text */
+            padding: 10px;
+            font-size: 20px;
+            font-weight: bold; /* Bold text */
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        #rss-ticker span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scrollTicker 180s linear infinite; /* Slowed down to 180s */
+        }
+
+        @keyframes scrollTicker {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        #stream-selector-container {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #0056b3; /* Background color matching the welcome message */
+            border: 2px solid #0056b3; /* Border color matching the welcome message */
+            border-radius: 5px; /* Rounded corners */
+            display: inline-block;
+        }
+
+        #stream-selector {
+            margin: 0;
+            padding: 0;
+            border: none;
+            width: 100%;
+            font-size: 16px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="top-bar">
+            <div id="date"></div>
+            <div id="clock"></div>
+            <div id="weather"></div>
+        </div>
+        <div id="main-content">
+            <div id="video-container">
+                <video id="live-stream" autoplay controls>
+                    Your browser does not support the video tag.
+                </video>
+                <div id="stream-selector-container">
+                    <select id="stream-selector">
+                        <option value="https://kan11w.media.kan.org.il/hls/live/2105694/2105694/master.m3u8">כאן 11</option>
+                        <option value="https://ilplus.vercel.app/live/keshet">קשת 12</option>
+                        <option value="https://d18b0e6mopany4.cloudfront.net/out/v1/08bc71cf0a0f4712b6b03c732b0e6d25/index.m3u8">רשת 13</option>
+                        <option value="https://now14.g-mana.live/media/91517161-44ab-4e46-af70-e9fe26117d2e/mainManifest.m3u8">עכשיו 14</option>
+                        <option value="https://bcovlive-a.akamaihd.net/54b8e6b753e3409c91856201d1f08731/eu-central-1/5377161796001/playlist.m3u8">i24 חדשות</option>
+                        <option value="https://mako-streaming.akamaized.net/direct/hls/live/2035340/ch24live/video_7201280_p_1.m3u8">ערוץ 24</option>
+                        <option value="https://kan23.media.kan.org.il/hls/live/2024691/2024691/master.m3u8">כאן חינוכית</option>
+                        <option value="https://d2lckchr9cxrss.cloudfront.net/out/v1/c73af7694cce4767888c08a7534b503c/index.m3u8">ערוץ האח הגדול</option>
+                        <option value="https://bcovlive-a.akamaihd.net/6e3dd61ac4c34d6f8fb9698b565b9f50/eu-central-1/5377161796001/playlist-all_dvr.m3u8">באנגלית i24 חדשות</option>
+                    </select>
+                </div>
+            </div>
+            <div id="info-container">
+                <div id="welcome-message"></div>
+                <div id="current-time">
+                    <span id="date"></span>
+                    <span id="clock"></span>
+                </div>
+                <div id="weather-info">
+                    <span id="weather"></span>
+                </div>
+                <div id="rss-title">חדשות היום</div>
+                <div id="rss-feed"></div>
+                <div id="announcements"></div>
+            </div>
+        </div>
+        <div id="rss-ticker">
+            <span id="rss-ticker-content"></span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        const video = document.getElementById('live-stream');
+        const streamSelector = document.getElementById('stream-selector');
+        let hls;
+
+        function loadStream(url) {
+            if (Hls.isSupported()) {
+                if (hls) hls.destroy();
+                hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                    video.play();
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+                video.addEventListener('loadedmetadata', function () {
+                    video.play();
+                });
+            }
+        }
+
+        // Initial stream load
+        loadStream(streamSelector.value);
+
+        // Change stream on dropdown selection
+        streamSelector.addEventListener('change', function () {
+            loadStream(this.value);
+        });
+
+        function updateClock() {
+            const now = new Date();
+            const options = { hour: 'numeric', minute: 'numeric' };
+            document.getElementById('clock').textContent = now.toLocaleTimeString('he-IL', options);
+        }
+        setInterval(updateClock, 1000);
+
+        function updateDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('date').textContent = now.toLocaleDateString('he-IL', options);
+        }
+        updateDate();
+        setInterval(updateDate, 60000); // Update date every minute
+
+        function updateGreeting() {
+            const now = new Date();
+            const hour = now.getHours();
+            let greeting = 'שלום שחר';
+            if (hour >= 5 && hour < 12) {
+                greeting = 'בוקר טוב שחר';
+            } else if (hour >= 12 && hour < 17) {
+                greeting = 'צהריים טובים שחר';
+            } else if (hour >= 17 && hour < 22) {
+                greeting = 'ערב טוב שחר';
+            } else {
+                greeting = 'לילה טוב שחר';
+            }
+            document.getElementById('welcome-message').textContent = greeting;
+        }
+        updateGreeting();
+        setInterval(updateGreeting, 3600000); // Update greeting every hour
+
+        async function fetchWeather() {
+            try {
+                const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Ashdod,il&units=metric&lang=he&appid=5ab1c193afacdae9cd0d6978de57ecca');
+                const weatherData = await response.json();
+                const temp = Math.round(weatherData.main.temp);
+                const description = weatherData.weather[0].description;
+                document.getElementById('weather').textContent = `מזג האוויר: ${temp}°C, ${description}`;
+            } catch (error) {
+                console.error('Error fetching weather:', error);
+            }
+        }
+        fetchWeather();
+        setInterval(fetchWeather, 600000); // Update weather every 10 minutes
+
+        async function fetchRSS() {
+            const rssUrl = 'https://www.ynet.co.il/Integration/StoryRss1854.xml';
+            try {
+                const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`);
+                const text = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(text, 'text/xml');
+                const items = xmlDoc.querySelectorAll('item');
+                let rssContent = '';
+
+                items.forEach((item, index) => {
+                    if (index < 5) { // Display only the first 5 items
+                        const title = item.querySelector('title').textContent;
+                        const link = item.querySelector('link').textContent;
+                        const description = item.querySelector('description').textContent;
+
+                        rssContent += `
+                            <div class="rss-item">
+                                <div class="rss-item-content">
+                                    <div class="rss-item-title"><a href="${link}" target="_blank">${title}</a></div>
+                                    <div class="rss-item-description">${description}</div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+                document.getElementById('rss-feed').innerHTML = rssContent;
+            } catch (error) {
+                console.error('Error fetching RSS:', error);
+            }
+        }
+        fetchRSS();
+        setInterval(fetchRSS, 300000); // Update RSS every 5 minutes
+
+        async function fetchBreakingNews() {
+            try {
+                const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent('https://ch2rss.fflow.net/pushiya_com')}`);
+                const text = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(text, 'text/xml');
+                const items = xmlDoc.querySelectorAll('item');
+                let breakingNews = '';
+
+                items.forEach((item, index) => {
+                    if (index < 5) { // Display only the first 5 items
+                        const title = item.querySelector('title').textContent;
+                        breakingNews += `${title} • `;
+                    }
+                });
+
+                document.getElementById('rss-ticker-content').textContent = breakingNews.slice(0, -3); // Remove the last bullet point and spaces
+            } catch (error) {
+                console.error('Error fetching breaking news:', error);
+            }
+        }
+        fetchBreakingNews();
+        setInterval(fetchBreakingNews, 180000); // Update breaking news every 3 minutes
+    </script>
+</body>
+
+</html>
